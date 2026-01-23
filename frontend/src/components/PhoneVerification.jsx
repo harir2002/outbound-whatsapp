@@ -137,11 +137,7 @@ function PhoneVerification({ onVerified, initialPhoneNumber = '' }) {
                             disabled={loading}
                             autoFocus
                         />
-                        {debugCode && (
-                            <small className="debug-code">
-                                🔧 Dev Mode - Code: <strong>{debugCode}</strong>
-                            </small>
-                        )}
+
                     </div>
 
                     <div className="button-group">
