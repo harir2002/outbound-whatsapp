@@ -40,10 +40,7 @@ function CampaignPage() {
             return
         }
 
-        if (!formData.ngrokUrl) {
-            alert('Please enter PUBLIC URL (ngrok) for real calls')
-            return
-        }
+        const publicUrl = import.meta.env.VITE_API_URL || 'http://localhost:8001'
 
         try {
             setLoading(true)
@@ -60,7 +57,7 @@ function CampaignPage() {
                     amount: formData.amount,
                     due_date: formData.dueDate
                 },
-                public_url: formData.ngrokUrl
+                public_url: publicUrl
             })
 
             const newCallId = voiceResponse.data.call_id
@@ -202,23 +199,7 @@ Thank you!
             <div className="campaign-grid">
                 {/* Campaign Form */}
                 <div className="card campaign-form">
-                    <div className="form-group">
-                        <label className="form-label" style={{ color: '#ec4899', fontWeight: 'bold' }}>
-                            Public URL (Required for Real Calls)
-                        </label>
-                        <input
-                            type="text"
-                            className="form-input"
-                            name="ngrokUrl"
-                            placeholder="https://xxxx-xxxx.ngrok-free.app"
-                            value={formData.ngrokUrl}
-                            onChange={handleChange}
-                            style={{ borderColor: '#ec4899' }}
-                        />
-                        <small className="text-muted">
-                            Start ngrok: <code>ngrok http 8001</code> and paste URL here
-                        </small>
-                    </div>
+
 
                     <div className="form-group">
 
