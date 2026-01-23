@@ -1,0 +1,66 @@
+﻿python : Traceback (most 
+recent call last):
+At line:1 char:1
++ python test_sarvam.py 2>&1 
+| Out-File -Encoding UTF8 
+sarvam_test_outp ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Traceba  
+  ck (most recent call las   
+ t)::String) [], RemoteEx    
+ception
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+  File "C:\Users\HARI 
+R\Desktop\Sales Application 
+and Demo\Outbound Whatsapp De
+mo\backend\test_sarvam.py", 
+line 76, in <module>
+    asyncio.run(test_sarvam_t
+ts())
+  File "C:\Users\HARI R\AppDa
+ta\Local\Programs\Python\Pyth
+on311\Lib\asyncio\runners.py"
+, line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\HARI R\AppDa
+ta\Local\Programs\Python\Pyth
+on311\Lib\asyncio\runners.py"
+, line 118, in run
+    return self._loop.run_unt
+il_complete(task)
+           ^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+  File "C:\Users\HARI R\AppDa
+ta\Local\Programs\Python\Pyth
+on311\Lib\asyncio\base_events
+.py", line 654, in 
+run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\HARI 
+R\Desktop\Sales Application 
+and Demo\Outbound Whatsapp De
+mo\backend\test_sarvam.py", 
+line 16, in test_sarvam_tts
+    print(f"\U0001f511 API 
+Key: {api_key[:10]}... 
+(length: {len(api_key)})")
+  File "C:\Users\HARI R\AppDa
+ta\Local\Programs\Python\Pyth
+on311\Lib\encodings\cp1252.py
+", line 19, in encode
+    return codecs.charmap_enc
+ode(input,self.errors,encodin
+g_table)[0]
+           ^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't encode 
+character '\U0001f511' in 
+position 0: character maps 
+to <undefined>

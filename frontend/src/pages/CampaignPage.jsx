@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { voiceAPI, whatsappAPI, smsAPI } from '../api'
+import PhoneVerification from '../components/PhoneVerification'
 import './CampaignPage.css'
 
 function CampaignPage() {
@@ -17,6 +18,13 @@ function CampaignPage() {
     const [loading, setLoading] = useState(false)
     const [status, setStatus] = useState('')
     const [callId, setCallId] = useState('')
+    const [showVerification, setShowVerification] = useState(false)
+
+    const handleVerified = (verifiedNumber) => {
+        setFormData({ ...formData, phoneNumber: verifiedNumber })
+        setShowVerification(false)
+        setStatus(`✅ Number ${verifiedNumber} verified! You can now make calls.`)
+    }
 
     const handleChange = (e) => {
         setFormData({
@@ -300,14 +308,28 @@ Thank you!
 
                     <div className="form-group">
                         <label className="form-label">Phone Number (with country code)</label>
-                        <input
-                            type="text"
-                            className="form-input"
-                            name="phoneNumber"
-                            placeholder="+919876543210"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                        />
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                            <input
+                                type="text"
+                                className="form-input"
+                                name="phoneNumber"
+                                placeholder="+919876543210"
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                                style={{ flex: 1 }}
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => setShowVerification(true)}
+                                style={{ whiteSpace: 'nowrap' }}
+                            >
+                                🔐 Verify Number
+                            </button>
+                        </div>
+                        <small className="text-muted">
+                            ℹ️ Optional: Verify your number to ensure SMS delivery.
+                        </small>
                     </div>
 
                     <div className="form-group">
@@ -445,6 +467,25 @@ Thank you!
                     </div>
                 </div>
             </div>
+
+            {/* Verification Modal */}
+            {showVerification && (
+                <div className="modal-overlay" onClick={() => setShowVerification(false)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button
+                            className="modal-close"
+                            onClick={() => setShowVerification(false)}
+                            aria-label="Close"
+                        >
+                            ✕
+                        </button>
+                        <PhoneVerification
+                            onVerified={handleVerified}
+                            initialPhoneNumber={formData.phoneNumber}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

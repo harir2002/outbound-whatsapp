@@ -69,10 +69,23 @@ class SarvamVoiceService:
                 
                 return audio_bytes
                 
-        except Exception as e:
-            logger.warning(f"⚠️ TTS API failed, using demo mode: {str(e)}")
+                
+        except httpx.HTTPStatusError as e:
+            logger.error(f"❌ Sarvam TTS HTTP Error: Status {e.response.status_code}")
+            logger.error(f"   Response body: {e.response.text[:500]}")
+            logger.warning(f"⚠️ TTS API failed, using demo mode")
             # Return mock audio data for demo purposes
-            # This is a minimal WAV file header + silence
+            mock_audio = b'RIFF$\x00\x00\x00WAVEfmt \x10\x00\x00\x00\x01\x00\x01\x00D\xac\x00\x00\x88X\x01\x00\x02\x00\x10\x00data\x00\x00\x00\x00'
+            logger.info(f"✅ TTS demo mode: {len(text)} chars -> mock audio")
+            return mock_audio
+                
+        except Exception as e:
+            logger.error(f"❌ Sarvam TTS Exception: {type(e).__name__}: {str(e)}")
+            if hasattr(e, '__traceback__'):
+                import traceback
+                logger.error(f"   Traceback: {traceback.format_exc()}")
+            logger.warning(f"⚠️ TTS API failed, using demo mode")
+            # Return mock audio data for demo purposes
             mock_audio = b'RIFF$\x00\x00\x00WAVEfmt \x10\x00\x00\x00\x01\x00\x01\x00D\xac\x00\x00\x88X\x01\x00\x02\x00\x10\x00data\x00\x00\x00\x00'
             logger.info(f"✅ TTS demo mode: {len(text)} chars -> mock audio")
             return mock_audio

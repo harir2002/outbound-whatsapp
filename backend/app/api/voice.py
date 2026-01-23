@@ -392,17 +392,32 @@ async def get_twiml_for_call(call_id: str):
         audio_bytes = session.get("audio_bytes", b"")
         use_fallback_tts = len(audio_bytes) < 100
         
+        
+        # Language-specific Twilio voices
+        TWILIO_VOICES = {
+            "en": ("alice", "en-IN"),  # English with Indian accent
+            "hi": ("Polly.Aditi", "hi-IN"),  # Hindi (Amazon Polly via Twilio)
+            "ta": ("Polly.Aditi", "ta-IN"),  # Tamil
+            "te": ("Polly.Aditi", "te-IN"),  # Telugu  
+            "mr": ("Polly.Aditi", "mr-IN"),  # Marathi
+            "bn": ("Polly.Aditi", "bn-IN"),  # Bengali
+        }
+        
+        # Get language from session
+        language = session.get("language", "en")
+        voice, lang_code = TWILIO_VOICES.get(language, ("alice", "en-IN"))
+        
         if use_fallback_tts:
-            logger.warning(f"⚠️ Sarvam TTS likely failed (size {len(audio_bytes)}), falling back to Twilio <Say>")
+            logger.warning(f"⚠️ Sarvam TTS failed (size {len(audio_bytes)}), using Twilio TTS with {voice}")
             greeting = session.get("greeting", "Hello, this is a call from your bank.")
-            # Escape XML special characters if needed, simple replacement for now
+            # Escape XML special characters
             greeting = greeting.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
             
             twiml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say voice="alice" language="en-IN">{greeting}</Say>
+    <Say voice="{voice}" language="{lang_code}">{greeting}</Say>
     <Pause length="1"/>
-    <Say voice="alice" language="en-IN">Thank you for your time. Goodbye.</Say>
+    <Say voice="{voice}" language="{lang_code}">Thank you for your time. Goodbye.</Say>
 </Response>'''
         else:
             # Use public URL for high quality audio

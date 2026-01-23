@@ -52,6 +52,15 @@ export const analyticsAPI = {
     recordIntent: (data) => api.post('/api/analytics/record-intent', data)
 }
 
+// Verification API
+export const verificationAPI = {
+    sendCode: (phoneNumber) => api.post('/api/verification/send-code', { phone_number: phoneNumber }),
+    verifyCode: (phoneNumber, code) => api.post('/api/verification/verify-code', { phone_number: phoneNumber, code }),
+    checkStatus: (phoneNumber) => api.get(`/api/verification/check/${phoneNumber}`),
+    getVerifiedNumbers: () => api.get('/api/verification/verified-numbers'),
+    resetVerification: (phoneNumber) => api.delete(`/api/verification/reset/${phoneNumber}`)
+}
+
 // Health check
 export const healthCheck = () => api.get('/health')
 
