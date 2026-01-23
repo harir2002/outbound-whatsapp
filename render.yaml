@@ -12,7 +12,6 @@ services:
     rootDir: backend
     plan: free
     region: singapore
-    buildCommand: docker build -f Dockerfile.prod -t bfsi-backend .
     healthCheckPath: /health
     numInstances: 1
     envVars:

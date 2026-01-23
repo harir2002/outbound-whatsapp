@@ -3,10 +3,10 @@ uvicorn[standard]==0.27.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 
-# AI & ML (Lightweight - NO PyTorch/CUDA)
+# AI & ML
 groq==0.4.1
-# chromadb removed - too heavy for free tier
-# sentence-transformers removed - pulls PyTorch (915MB+)
+chromadb==0.4.22
+sentence-transformers==2.3.1
 langchain==0.1.4
 langchain-community==0.0.16
 
@@ -22,6 +22,7 @@ psycopg2-binary==2.9.9
 
 # Async & Queue
 celery==5.3.6
+celery[redis]==5.3.6
 
 # Security
 python-jose[cryptography]==3.3.0
@@ -39,9 +40,16 @@ python-dateutil==2.8.2
 loguru==0.7.2
 sentry-sdk==1.40.0
 
-# Data Processing (numpy only, pandas removed)
+# Data Processing
+pandas==2.2.0
 numpy==1.26.3
 
 # Validation
 phonenumbers==8.13.27
 email-validator==2.1.0
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+httpx==0.26.0
