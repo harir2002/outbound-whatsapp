@@ -12,7 +12,8 @@ function CampaignPage() {
         language: 'en',
         amount: '',
         dueDate: '',
-        messageType: 'sms' // Default to SMS as it's easier to test
+        messageType: 'sms', // Default to SMS as it's easier to test
+        ngrokUrl: import.meta.env.VITE_API_URL || ''
     })
 
     const [loading, setLoading] = useState(false)
