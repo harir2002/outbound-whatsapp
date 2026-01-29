@@ -552,7 +552,7 @@ def _generate_notification_content(purpose: str) -> str:
     """Generate Notification content with SBA Info link"""
     
     # Unified link for all notifications
-    link = "https://www.sbainfo.in"
+    link = "https://bfsi-voice-agent.vercel.app"
     
     templates = {
         "emi_reminder": f"Alert: Your EMI payment is approaching. Amount due: Rs. 15,000. Pay by 5th to avoid late fees. Pay here: {link}",
