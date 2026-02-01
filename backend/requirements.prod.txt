@@ -13,6 +13,7 @@ langchain-community==0.0.16
 # Communication
 twilio==8.11.0
 requests==2.31.0
+aiosmtplib==3.0.1
 
 # Database & Cache
 redis==5.0.1
